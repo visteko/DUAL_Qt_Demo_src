@@ -42,6 +42,7 @@ void MyClass::readMessage() //读取信息
 	QString xtag = "x";
 	QString ytag = "y";
 	QString ztag = "z";
+	QString rtag = "rms";
 	QString etag = "vep";
 	int xpos = ss.indexOf(xtag); 
 	QString ss_from_x;
@@ -49,15 +50,18 @@ void MyClass::readMessage() //读取信息
 
 	int ypos = ss_from_x.indexOf(ytag);
 	int zpos = ss_from_x.indexOf(ztag);
+	int rpos = ss_from_x.indexOf(rtag);
 	int epos = ss_from_x.indexOf(etag);
 	//  +1: to eliminate "x";
 	QString xcoordinate = ss_from_x.mid(1, ypos - 1);
 	QString ycoordinate = ss_from_x.mid(ypos + 1, zpos - (ypos + 1));
-	QString zcoordinate = ss_from_x.mid(zpos + 1, epos - (zpos + 1));
+	QString zcoordinate = ss_from_x.mid(zpos + 1, rpos - (zpos + 1));
+	QString rms_error = ss_from_x.mid(rpos + 3, epos - (rpos + 3));
 
 	ui.label_valx->setText(xcoordinate);
 	ui.label_valy->setText(ycoordinate);
 	ui.label_valz->setText(zcoordinate);
+	ui.label_vale->setText(rms_error);
 }
 
 void MyClass::sendMessage() //发送信息  
