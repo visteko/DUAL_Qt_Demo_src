@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>400</height>
+    <height>269</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,7 +18,7 @@
     <property name="geometry">
      <rect>
       <x>60</x>
-      <y>260</y>
+      <y>180</y>
       <width>121</width>
       <height>23</height>
      </rect>
@@ -27,21 +27,11 @@
      <string>1.Connect Tracker</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="textEdit_rec">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>20</y>
-      <width>461</width>
-      <height>91</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_start">
     <property name="geometry">
      <rect>
       <x>240</x>
-      <y>260</y>
+      <y>180</y>
       <width>111</width>
       <height>23</height>
      </rect>
@@ -54,7 +44,7 @@
     <property name="geometry">
      <rect>
       <x>410</x>
-      <y>260</y>
+      <y>180</y>
       <width>111</width>
       <height>23</height>
      </rect>
@@ -67,7 +57,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>140</y>
+      <y>40</y>
       <width>54</width>
       <height>12</height>
      </rect>
@@ -80,7 +70,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>170</y>
+      <y>70</y>
       <width>54</width>
       <height>12</height>
      </rect>
@@ -93,7 +83,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>200</y>
+      <y>100</y>
       <width>54</width>
       <height>12</height>
      </rect>
@@ -106,7 +96,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>230</y>
+      <y>130</y>
       <width>54</width>
       <height>12</height>
      </rect>
@@ -119,7 +109,7 @@
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>140</y>
+      <y>40</y>
       <width>54</width>
       <height>12</height>
      </rect>
@@ -127,12 +117,15 @@
     <property name="text">
      <string>x</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
    </widget>
    <widget class="QLabel" name="label_valy">
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>170</y>
+      <y>70</y>
       <width>54</width>
       <height>12</height>
      </rect>
@@ -140,12 +133,15 @@
     <property name="text">
      <string>y</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
    </widget>
    <widget class="QLabel" name="label_valz">
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>200</y>
+      <y>100</y>
       <width>54</width>
       <height>12</height>
      </rect>
@@ -153,12 +149,15 @@
     <property name="text">
      <string>z</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
    </widget>
    <widget class="QLabel" name="label_vale">
     <property name="geometry">
      <rect>
       <x>290</x>
-      <y>230</y>
+      <y>130</y>
       <width>54</width>
       <height>12</height>
      </rect>
@@ -166,9 +165,11 @@
     <property name="text">
      <string>e</string>
     </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
    </widget>
    <zorder>pushButton_connect</zorder>
-   <zorder>textEdit_rec</zorder>
    <zorder>pushButton_stop</zorder>
    <zorder>pushButton_start</zorder>
    <zorder>label_Tx</zorder>

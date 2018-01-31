@@ -37,7 +37,7 @@ void MyClass::readMessage() //读取信息
 	QByteArray qba = m_tcpSocket->readAll(); //读取  
 	qDebug() << qba;
 	QString ss = QVariant(qba).toString();
-	ui.textEdit_rec->setText(ss);
+	//ui.textEdit_rec->setText(ss);
 
 	QString xtag = "x";
 	QString ytag = "y";
