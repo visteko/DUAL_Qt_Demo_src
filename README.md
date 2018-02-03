@@ -5,15 +5,15 @@ This Qt project is for demo VISTEKO Optical Tracker (VISTEKO OT). It is based on
 
 ## File Description
 ### myclass.ui
-   the ui definition file, mainly includes two categories of Widget, "Pust Button" and "Lable"
+   the ui definition file, includes two categories of Widgets, "Pust Button" and "Lable"
 #### 1. Push Button  
    **"1. Connect Tracker"** button is to start server listening from the VISTEKO OT client's connection  
    **"2. Start Tracking"** button is to send STRING "start" to VISTEKO OT to its enable optical tracking funtion  
    **"3. Stop Tracking"** button is to send STRING "stop" to VISTEKO OT to disable tracking, after stop, VISTEKO OT will go to low power mode  
 #### 2. Label  
-   **"label_valx", "label_valy", "label_valz" and "label_vale"**, report the realtime measurment of origin postion from VISTEKO OT. These four labels were updated in the MyClass::readMessage() of _file_ myclass.cpp. Please note that these four label were in QString type. If users want to know the numerical value of measurment result, QString.toDouble() can be used to do this. The transformation was also implemented in the the MyClass::readMessage() of _file_ myclass.cpp.  
+   **"label_valx", "label_valy", "label_valz" and "label_vale"**, report the realtime measurments of the origin postion from VISTEKO OT. These four labels were updated in the MyClass::readMessage() of _file_ [myclass.cpp](https://github.com/visteko/DUAL_Qt_Demo_src/blob/master/myclass.cpp). Please note that these four label were in QString type. If users want to know the numerical value of measurment result, QString.toDouble() can be used to do this. The transformation was also implemented in the the MyClass::readMessage() of _file_ [myclass.cpp](https://github.com/visteko/DUAL_Qt_Demo_src/blob/master/myclass.cpp).  
    
-   **"label_valq0", "label_valqx", "label_valqy" and "label_valqz"**, report the realtime measurment of the quaternion rotation from VISTEKO OT. These four labels were updated in the MyClass::readMessage() of _file_ myclass.cpp. Please note that these four label were in QString type. If users want to know the numerical value of measurment result, QString.toDouble() can be used to do this. The transformation was also implemented in the the MyClass::readMessage() of _file_ myclass.cpp.
+   **"label_valq0", "label_valqx", "label_valqy" and "label_valqz"**, report the realtime measurment of the quaternion rotation from VISTEKO OT. These four labels were updated in the MyClass::readMessage() of _file_ [myclass.cpp](https://github.com/visteko/DUAL_Qt_Demo_src/blob/master/myclass.cpp). Please note that these four label were in QString type. If users want to know the numerical value of measurment result, QString.toDouble() can be used to do this. The transformation was also implemented in the the MyClass::readMessage() of _file_ [myclass.cpp](https://github.com/visteko/DUAL_Qt_Demo_src/blob/master/myclass.cpp). 
    
 ### myclass.cpp
    the core function file, handles all the connection and data communication request
