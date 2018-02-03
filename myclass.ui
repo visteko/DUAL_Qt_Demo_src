@@ -56,7 +56,7 @@
    <widget class="QLabel" name="label_Tx">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>130</x>
       <y>40</y>
       <width>54</width>
       <height>12</height>
@@ -69,7 +69,7 @@
    <widget class="QLabel" name="label_Ty">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>130</x>
       <y>70</y>
       <width>54</width>
       <height>12</height>
@@ -82,7 +82,7 @@
    <widget class="QLabel" name="label_Tz">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>130</x>
       <y>100</y>
       <width>54</width>
       <height>12</height>
@@ -95,7 +95,7 @@
    <widget class="QLabel" name="label_Terror">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>130</x>
       <y>130</y>
       <width>54</width>
       <height>12</height>
@@ -108,7 +108,7 @@
    <widget class="QLabel" name="label_valx">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>190</x>
       <y>40</y>
       <width>54</width>
       <height>12</height>
@@ -124,7 +124,7 @@
    <widget class="QLabel" name="label_valy">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>190</x>
       <y>70</y>
       <width>54</width>
       <height>12</height>
@@ -140,7 +140,7 @@
    <widget class="QLabel" name="label_valz">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>190</x>
       <y>100</y>
       <width>54</width>
       <height>12</height>
@@ -156,7 +156,7 @@
    <widget class="QLabel" name="label_vale">
     <property name="geometry">
      <rect>
-      <x>290</x>
+      <x>190</x>
       <y>130</y>
       <width>54</width>
       <height>12</height>
@@ -164,6 +164,122 @@
     </property>
     <property name="text">
      <string>e</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Q0">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>40</y>
+      <width>54</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Q0:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Qx">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>70</y>
+      <width>54</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Qx:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Qy">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>100</y>
+      <width>54</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Qy:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_Qz">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>130</y>
+      <width>54</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Qz:</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_valq0">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>40</y>
+      <width>54</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>q0</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_valqx">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>70</y>
+      <width>54</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>qx</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_valqy">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>100</y>
+      <width>54</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>qy</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_valqz">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>130</y>
+      <width>54</width>
+      <height>12</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>qz</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
@@ -180,6 +296,14 @@
    <zorder>label_valy</zorder>
    <zorder>label_valz</zorder>
    <zorder>label_vale</zorder>
+   <zorder>label_Q0</zorder>
+   <zorder>label_Qx</zorder>
+   <zorder>label_Qy</zorder>
+   <zorder>label_Qz</zorder>
+   <zorder>label_valq0</zorder>
+   <zorder>label_valqx</zorder>
+   <zorder>label_valqy</zorder>
+   <zorder>label_valqz</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

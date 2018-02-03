@@ -43,6 +43,10 @@ void MyClass::readMessage() //读取信息
 	QString ytag = "y";
 	QString ztag = "z";
 	QString rtag = "rms";
+	QString q0tag = "q0";
+	QString q1tag = "q1";
+	QString q2tag = "q2";
+	QString q3tag = "q3";
 	QString etag = "vep";
 	int xpos = ss.indexOf(xtag); 
 	QString ss_from_x;
@@ -51,17 +55,40 @@ void MyClass::readMessage() //读取信息
 	int ypos = ss_from_x.indexOf(ytag);
 	int zpos = ss_from_x.indexOf(ztag);
 	int rpos = ss_from_x.indexOf(rtag);
+	int q0pos = ss_from_x.indexOf(q0tag);
+	int q1pos = ss_from_x.indexOf(q1tag);
+	int q2pos = ss_from_x.indexOf(q2tag);
+	int q3pos = ss_from_x.indexOf(q3tag);
 	int epos = ss_from_x.indexOf(etag);
 	//  +1: to eliminate "x";
 	QString xcoordinate = ss_from_x.mid(1, ypos - 1);
 	QString ycoordinate = ss_from_x.mid(ypos + 1, zpos - (ypos + 1));
 	QString zcoordinate = ss_from_x.mid(zpos + 1, rpos - (zpos + 1));
-	QString rms_error = ss_from_x.mid(rpos + 3, epos - (rpos + 3));
+	QString rms_error = ss_from_x.mid(rpos + 3, q0pos - (rpos + 3));
+	QString q0 = ss_from_x.mid(q0pos + 2, q1pos - (q0pos + 2));
+	QString q1 = ss_from_x.mid(q1pos + 2, q2pos - (q1pos + 2));
+	QString q2 = ss_from_x.mid(q2pos + 2, q3pos - (q2pos + 2));
+	QString q3 = ss_from_x.mid(q3pos + 2, epos - (q3pos + 2));
 
 	ui.label_valx->setText(xcoordinate);
 	ui.label_valy->setText(ycoordinate);
 	ui.label_valz->setText(zcoordinate);
 	ui.label_vale->setText(rms_error);
+	ui.label_valq0->setText(q0);
+	ui.label_valqx->setText(q1);
+	ui.label_valqy->setText(q2);
+	ui.label_valqz->setText(q3);
+
+	//show double, NOT string
+	double val_x = xcoordinate.toDouble();
+	double val_y = ycoordinate.toDouble();
+	double val_z = zcoordinate.toDouble();
+	double val_rms = rms_error.toDouble();
+	double val_q0 = q0.toDouble();
+	double val_q1 = q1.toDouble();
+	double val_q2 = q2.toDouble();
+	double val_q3 = q3.toDouble();
+	qDebug("\n x: %f  y: %f  z: %f  rms: %f  q0: %f  q1: %f  q2: %f  q3: %f", val_x, val_y, val_z, val_rms, val_q0, val_q1, val_q2, val_q3);
 }
 
 void MyClass::sendMessage() //发送信息  
