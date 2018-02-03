@@ -17,12 +17,18 @@ This Qt project is for demo VISTEKO Optical Tracker (VISTEKO OT). It is based on
 1. myclass.cpp, the core function file, handles all the connection and data communication request
    * MyClass::readMessage()  
    read packet from VISTEKO OT client in realtime, then parse the data packet according to the following protocal,  
-   > VISTEKO OT packet composed of "vspTool" + "x" + "y" + "z" + "rms" + "q0" + "q1" + "q2" + "q3" + "vep"
-   > "vspTool" is the tracking rigid body id, and currently is "2" which represent the NDI Polaris Passive Probe (8700340)
-   > "x","y" and "z" are the measurment of the rigid body's origin
-   > "rms" is the root mean square error of the measurment of the rigid body's origin
-   > "q0","q1","q2" and "q3" are the measurement of the rotaion quaternion of the rigid body
-   > HERE is a demo of VISTEKO OT packet "vspTool2x100.00y101.01z1010.10rms0.1234q0-1.0000q10.0000q20.0000q30.0000vep", which means that _vspTool_ is "2", _x_ is "100.00" (in milimeter), _y_ is "101.01", _z_ is "1010.10", _rms_ is "0.1234", _q0_ is "-1.0000", _q1_ is "0.0000", _q2_ is "0.0000", _q3_ is "0.0000". _vep_ is the tag of end of packet.
+   > VISTEKO OT packet composed of "vspTool" + "x" + "y" + "z" + "rms" + "q0" + "q1" + "q2" + "q3" + "vep"  
+   
+   > "vspTool" is the tracking rigid body id, and currently is "2" which represent the NDI Polaris Passive Probe (8700340)  
+   
+   > "x","y" and "z" are the measurment of the rigid body's origin  
+   
+   > "rms" is the root mean square error of the measurment of the rigid body's origin  
+   
+   > "q0","q1","q2" and "q3" are the measurement of the rotaion quaternion of the rigid body  
+   
+   > HERE is a demo of VISTEKO OT packet "vspTool2x100.00y101.01z1010.10rms0.1234q0-1.0000q10.0000q20.0000q30.0000vep", which means that _vspTool_ is "2", _x_ is "100.00" (in milimeter), _y_ is "101.01", _z_ is "1010.10", _rms_ is "0.1234", _q0_ is "-1.0000", _q1_ is "0.0000", _q2_ is "0.0000", _q3_ is "0.0000". _vep_ is the tag of end of packet.  
+   
    
    * MyClass::sendStartTracking()  
    send "start" string to VISTEKO OT to enable tracking
