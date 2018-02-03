@@ -31,6 +31,7 @@ private:
 	Ui::MyClassClass ui;
 	QTcpServer *m_tcpServer;
 	QTcpSocket *m_tcpSocket;
+	QTimer *timer;
 };
 
 #endif // MYCLASS_H

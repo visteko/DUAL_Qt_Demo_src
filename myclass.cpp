@@ -29,6 +29,9 @@ void MyClass::newConnect()
 	m_tcpSocket = m_tcpServer->nextPendingConnection(); //得到每个连进来的socket  
 	connect(m_tcpSocket, SIGNAL(readyRead()), this, SLOT(readMessage())); //有可读的信息，触发读函数槽  
 
+	timer = new QTimer(this);
+	connect(timer, SIGNAL(timeout()), this, SLOT(sendMessage()));
+	timer->start(10000);
 }
 
 void MyClass::readMessage() //读取信息  
@@ -93,9 +96,10 @@ void MyClass::readMessage() //读取信息
 
 void MyClass::sendMessage() //发送信息  
 {
-	//QString strMesg = ui.lineEdit_sendmessage->text();
-	//qDebug() << strMesg;
+	//broadcast "heartbeat"
+	//QString strMesg = "heartbeat";
 	//m_tcpSocket->write(strMesg.toStdString().c_str(), strlen(strMesg.toStdString().c_str())); //发送  
+	//qDebug() << "timerout\n";
 }
 
 void MyClass::sendStartTracking() //发送开始定位追踪命令
