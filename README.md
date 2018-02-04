@@ -6,10 +6,10 @@ This Qt project is for demo VISTEKO Optical Tracker (VISTEKO OT). It is based on
 ## File Description
 ### myclass.ui
    the ui definition file, includes two categories of Widgets, "Pust Button" and "Lable"
-#### 1. Push Button  
-   **"1. Connect Tracker"** button is to start server listening from the VISTEKO OT client's connection  
-   **"2. Start Tracking"** button is to send STRING "start" to VISTEKO OT to its enable optical tracking funtion  
-   **"3. Stop Tracking"** button is to send STRING "stop" to VISTEKO OT to disable tracking, after stop, VISTEKO OT will go to low power mode  
+#### 1. Push Button   
+   **"1. Start Tracking"** button is to send STRING "start" to VISTEKO OT to its enable optical tracking funtion  
+   **"2. Stop Tracking"** button is to send STRING "stop" to VISTEKO OT to disable tracking, after stop, VISTEKO OT will go to low power mode  
+   **Listening** (startTcpserver() -- function)has been removed into MyClass::MyClass(), which means that this demo application will listen the client connection since program run.
 #### 2. Label  
    **"label_valx", "label_valy", "label_valz" and "label_vale"**, report the realtime measurments of the origin postion from VISTEKO OT. These four labels were updated in the MyClass::readMessage() of _file_ [myclass.cpp](https://github.com/visteko/DUAL_Qt_Demo_src/blob/master/myclass.cpp). Please note that these four label were in QString type. If users want to know the numerical value of measurment result, QString.toDouble() can be used to do this. The transformation was also implemented in the the MyClass::readMessage() of _file_ [myclass.cpp](https://github.com/visteko/DUAL_Qt_Demo_src/blob/master/myclass.cpp).  
    
@@ -37,6 +37,12 @@ This Qt project is for demo VISTEKO Optical Tracker (VISTEKO OT). It is based on
    
 #### 3. MyClass::sendStopTracking()
    send "stop" string to VISTEKO OT to disable tracking and let VISTEKO OT go into low power mode
+   
+### Other project files
+.pro, .user are the Qt project file. Users may use their own project base, then add the reference code into it.
+
+## Notes
+This repo requires "QT += network" config, if users try it in Qt environment.
    
 
 ## Project symbol link
