@@ -14,43 +14,30 @@
    <string>MyClass</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QPushButton" name="pushButton_connect">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
-      <y>180</y>
-      <width>121</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>1.Connect Tracker</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_start">
     <property name="geometry">
      <rect>
-      <x>240</x>
-      <y>180</y>
+      <x>100</x>
+      <y>170</y>
       <width>111</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>2.Start Tracking</string>
+     <string>1.Start Tracking</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_stop">
     <property name="geometry">
      <rect>
-      <x>410</x>
-      <y>180</y>
+      <x>350</x>
+      <y>170</y>
       <width>111</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>3.Stop Tracking</string>
+     <string>2.Stop Tracking</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_Tx">
@@ -285,7 +272,6 @@
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
-   <zorder>pushButton_connect</zorder>
    <zorder>pushButton_stop</zorder>
    <zorder>pushButton_start</zorder>
    <zorder>label_Tx</zorder>

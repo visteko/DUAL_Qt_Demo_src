@@ -4,8 +4,9 @@ MyClass::MyClass(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+	startTcpserver();
 
-	this->connect(ui.pushButton_connect, SIGNAL(clicked()), this, SLOT(startTcpserver()));
+	//this->connect(ui.pushButton_connect, SIGNAL(clicked()), this, SLOT(startTcpserver()));
 	this->connect(ui.pushButton_start, SIGNAL(clicked()), this, SLOT(sendStartTracking()));
 	this->connect(ui.pushButton_stop, SIGNAL(clicked()), this, SLOT(sendStopTracking()));
 }
