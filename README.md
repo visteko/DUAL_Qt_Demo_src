@@ -47,4 +47,4 @@ This repo requires "QT += network" config, if users try it in Qt environment.
 
 ## Project symbol link
 1. mklink "dst" "src"       --  file link
-1. mklink \D "dst" "src"    --  directory link
+1. mklink /D "dst" "src"    --  directory link
