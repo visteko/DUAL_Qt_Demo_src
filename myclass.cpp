@@ -5,10 +5,11 @@ MyClass::MyClass(QWidget *parent)
 {
 	ui.setupUi(this);
 	startTcpserver();
-
+    m_pUdpServer = new QUdpSocket();
 	//this->connect(ui.pushButton_connect, SIGNAL(clicked()), this, SLOT(startTcpserver()));
 	this->connect(ui.pushButton_start, SIGNAL(clicked()), this, SLOT(sendStartTracking()));
 	this->connect(ui.pushButton_stop, SIGNAL(clicked()), this, SLOT(sendStopTracking()));
+    this->connect(ui.pushButtonBroadcast, SIGNAL(clicked()), this, SLOT(udpBroadcast()));
 }
 
 MyClass::~MyClass()
@@ -16,11 +17,37 @@ MyClass::~MyClass()
 	
 }
 
+void MyClass::udpBroadcast()
+{
+    QString content = "TrackerServerIP:" + getHostIpAddress();
+    m_pUdpServer->writeDatagram(content.toLocal8Bit(), QHostAddress::Broadcast, 2000);
+}
+//获取本机IP
+QString MyClass::getHostIpAddress()
+{
+    QString strIpAddress;
+    QList<QHostAddress> ipAddressesList = QNetworkInterface::allAddresses();
+    // 获取第一个本主机的IPv4地址
+    int nListSize = ipAddressesList.size();
+    for (int i = 0; i < nListSize; ++i)
+    {
+           if (ipAddressesList.at(i) != QHostAddress::LocalHost &&
+               ipAddressesList.at(i).toIPv4Address()) {
+               strIpAddress = ipAddressesList.at(i).toString();
+               break;
+           }
+     }
+     // 如果没有找到，则以本地IP地址为IP
+     if (strIpAddress.isEmpty())
+        strIpAddress = QHostAddress(QHostAddress::LocalHost).toString();
+     return strIpAddress;
+}
+
 void MyClass::startTcpserver()
 {
 	m_tcpServer = new QTcpServer(this);
 
-	m_tcpServer->listen(QHostAddress::Any, 1234); //监听任何连上1234端口的ip  
+    m_tcpServer->listen(QHostAddress::Any, 2234); //监听任何连上1234端口的ip
 
 	connect(m_tcpServer, SIGNAL(newConnection()), this, SLOT(newConnect())); //新连接信号触发，调用newConnect()槽函数，这个跟信号函数一样，其实你可以随便取。  
 }

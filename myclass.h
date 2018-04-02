@@ -26,12 +26,14 @@ private slots:
 	void sendStopTracking();
 	void newConnect();
 	void readMessage();
-
+    void udpBroadcast();
+    QString getHostIpAddress();
 private:
 	Ui::MyClassClass ui;
 	QTcpServer *m_tcpServer;
 	QTcpSocket *m_tcpSocket;
 	QTimer *timer;
+    QUdpSocket *m_pUdpServer;
 };
 
 #endif // MYCLASS_H

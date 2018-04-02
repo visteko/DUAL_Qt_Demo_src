@@ -17,7 +17,7 @@
    <widget class="QPushButton" name="pushButton_start">
     <property name="geometry">
      <rect>
-      <x>100</x>
+      <x>210</x>
       <y>170</y>
       <width>111</width>
       <height>23</height>
@@ -272,6 +272,19 @@
      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButtonBroadcast">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>170</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Connect</string>
+    </property>
+   </widget>
    <zorder>pushButton_stop</zorder>
    <zorder>pushButton_start</zorder>
    <zorder>label_Tx</zorder>
@@ -290,6 +303,7 @@
    <zorder>label_valqx</zorder>
    <zorder>label_valqy</zorder>
    <zorder>label_valqz</zorder>
+   <zorder>pushButtonBroadcast</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -297,7 +311,7 @@
      <x>0</x>
      <y>0</y>
      <width>600</width>
-     <height>17</height>
+     <height>23</height>
     </rect>
    </property>
   </widget>
@@ -312,8 +326,6 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources>
-  <include location="myclass.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
