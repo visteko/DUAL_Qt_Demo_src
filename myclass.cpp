@@ -10,6 +10,12 @@ MyClass::MyClass(QWidget *parent)
 	this->connect(ui.pushButton_start, SIGNAL(clicked()), this, SLOT(sendStartTracking()));
 	this->connect(ui.pushButton_stop, SIGNAL(clicked()), this, SLOT(sendStopTracking()));
     this->connect(ui.pushButtonBroadcast, SIGNAL(clicked()), this, SLOT(udpBroadcast()));
+    this->connect(ui.pushButtonStream, SIGNAL(clicked()), this, SLOT(sendStream()));
+    this->connect(ui.pushButtonRequest, SIGNAL(clicked()), this, SLOT(sendRequest()));
+    this->connect(ui.pushButtonSgmk, SIGNAL(clicked()), this, SLOT(sendSgmk()));
+    this->connect(ui.pushButtonToolx, SIGNAL(clicked()), this, SLOT(sendToolx()));
+    this->connect(ui.pushButtonQuit, SIGNAL(clicked()), this, SLOT(sendQuit()));
+    this->connect(ui.pushButtonCapture, SIGNAL(clicked()), this, SLOT(sendCapture()));
 }
 
 MyClass::~MyClass()
@@ -47,7 +53,7 @@ void MyClass::startTcpserver()
 {
 	m_tcpServer = new QTcpServer(this);
 
-    m_tcpServer->listen(QHostAddress::Any, 2234); //监听任何连上1234端口的ip
+    m_tcpServer->listen(QHostAddress::Any, 1999); //监听任何连上1234端口的ip
 
 	connect(m_tcpServer, SIGNAL(newConnection()), this, SLOT(newConnect())); //新连接信号触发，调用newConnect()槽函数，这个跟信号函数一样，其实你可以随便取。  
 }
@@ -146,4 +152,60 @@ void MyClass::sendStopTracking() //发送停止定位追踪命令
 	QString strMesg = "stop";
 	qDebug() << "\n Stop Tracking ...";
 	m_tcpSocket->write(strMesg.toStdString().c_str(), strlen(strMesg.toStdString().c_str())); //发送 
+}
+
+void MyClass::sendStream()
+{
+    //CMD: "stream" (string type)   to VISTEKO Tracker to enter stream mode.
+    QString strMesg = "stream";
+    qDebug() << "\n Stream mode on.";
+    m_tcpSocket->write(strMesg.toStdString().c_str(), strlen(strMesg.toStdString().c_str()));
+}
+
+void MyClass::sendRequest()
+{
+    //CMD: "request" (string type)   to VISTEKO Tracker to enter request mode.
+    QString strMesg = "request";
+    qDebug() << "\n Request mode on.";
+    m_tcpSocket->write(strMesg.toStdString().c_str(), strlen(strMesg.toStdString().c_str()));
+}
+
+void MyClass::sendRequestOnce()
+{
+    //CMD: "reqonce" (string type)   to VISTEKO Tracker to get one result.
+    QString strMesg = "reqonce";
+    qDebug() << "\n Request one result.";
+    m_tcpSocket->write(strMesg.toStdString().c_str(), strlen(strMesg.toStdString().c_str()));
+}
+
+void MyClass::sendSgmk()
+{
+    //CMD: "sgmk" (string type)   to VISTEKO Tracker to get single marker result.
+    QString strMesg = "sgmk";
+    qDebug() << "\n Get single marker result.";
+    m_tcpSocket->write(strMesg.toStdString().c_str(), strlen(strMesg.toStdString().c_str()));
+}
+
+void MyClass::sendToolx()
+{
+    //CMD: "tool01" (string type)   to VISTEKO Tracker to get tool 01 result.
+    QString strMesg = "tool01";
+    qDebug() << "\n Get tool 01 result.";
+    m_tcpSocket->write(strMesg.toStdString().c_str(), strlen(strMesg.toStdString().c_str()));
+}
+
+void MyClass::sendQuit()
+{
+    //CMD: "quit" (string type)   to VISTEKO Tracker to quit tcp connection.
+    QString strMesg = "quit";
+    qDebug() << "\n Quit tcp connection.";
+    m_tcpSocket->write(strMesg.toStdString().c_str(), strlen(strMesg.toStdString().c_str()));
+}
+
+void MyClass::sendCapture()
+{
+    //CMD: "capture" (string type)   to VISTEKO Tracker to capture image.
+    QString strMesg = "capture";
+    qDebug() << "\n Capture image.";
+    m_tcpSocket->write(strMesg.toStdString().c_str(), strlen(strMesg.toStdString().c_str()));
 }

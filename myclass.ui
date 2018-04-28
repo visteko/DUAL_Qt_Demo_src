@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>600</width>
-    <height>269</height>
+    <height>298</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,27 +17,27 @@
    <widget class="QPushButton" name="pushButton_start">
     <property name="geometry">
      <rect>
-      <x>210</x>
-      <y>170</y>
-      <width>111</width>
+      <x>100</x>
+      <y>180</y>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>1.Start Tracking</string>
+     <string>Start</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_stop">
     <property name="geometry">
      <rect>
-      <x>350</x>
-      <y>170</y>
-      <width>111</width>
+      <x>100</x>
+      <y>210</y>
+      <width>81</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
-     <string>2.Stop Tracking</string>
+     <string>Stop</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_Tx">
@@ -275,14 +275,105 @@
    <widget class="QPushButton" name="pushButtonBroadcast">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>170</y>
+      <x>10</x>
+      <y>180</y>
       <width>75</width>
       <height>23</height>
      </rect>
     </property>
     <property name="text">
      <string>Connect</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonQuit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>210</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Quit</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonStream">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>180</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Stream</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonRequest">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>210</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Request</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonCapture">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>180</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Capture</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonReqonce">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>210</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Reqonce</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonSgmk">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>180</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Sgmk</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonToolx">
+    <property name="geometry">
+     <rect>
+      <x>380</x>
+      <y>210</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Toolx</string>
     </property>
    </widget>
    <zorder>pushButton_stop</zorder>
@@ -304,6 +395,13 @@
    <zorder>label_valqy</zorder>
    <zorder>label_valqz</zorder>
    <zorder>pushButtonBroadcast</zorder>
+   <zorder>pushButtonQuit</zorder>
+   <zorder>pushButtonStream</zorder>
+   <zorder>pushButtonRequest</zorder>
+   <zorder>pushButtonCapture</zorder>
+   <zorder>pushButtonReqonce</zorder>
+   <zorder>pushButtonSgmk</zorder>
+   <zorder>pushButtonToolx</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">

@@ -27,6 +27,13 @@ private slots:
 	void newConnect();
 	void readMessage();
     void udpBroadcast();
+    void sendCapture();
+    void sendStream();
+    void sendRequest();
+    void sendRequestOnce();
+    void sendQuit();
+    void sendSgmk();
+    void sendToolx();
     QString getHostIpAddress();
 private:
 	Ui::MyClassClass ui;
