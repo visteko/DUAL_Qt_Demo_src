@@ -5,6 +5,7 @@
 #include "ui_myclass.h"
 #include <QtNetwork>
 #include <QTcpServer>
+#include <QTextStream>
 QT_BEGIN_NAMESPACE
 class QLabel;
 class QPushButton;
@@ -34,6 +35,8 @@ private slots:
     void sendQuit();
     void sendSgmk();
     void sendToolx();
+    void logPosition();
+    void logPositionClick();
     QString getHostIpAddress();
 private:
 	Ui::MyClassClass ui;
@@ -41,6 +44,9 @@ private:
 	QTcpSocket *m_tcpSocket;
 	QTimer *timer;
     QUdpSocket *m_pUdpServer;
+    QString recPos;
+    unsigned int recPosCount;
+    bool logPositionSet = false;
 };
 
 #endif // MYCLASS_H

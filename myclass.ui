@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>837</width>
     <height>298</height>
    </rect>
   </property>
@@ -376,6 +376,29 @@
      <string>Toolx</string>
     </property>
    </widget>
+   <widget class="QTextEdit" name="textEditDisp">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>0</y>
+      <width>331</width>
+      <height>161</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButtonLogPos">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>180</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Log</string>
+    </property>
+   </widget>
    <zorder>pushButton_stop</zorder>
    <zorder>pushButton_start</zorder>
    <zorder>label_Tx</zorder>
@@ -402,13 +425,15 @@
    <zorder>pushButtonReqonce</zorder>
    <zorder>pushButtonSgmk</zorder>
    <zorder>pushButtonToolx</zorder>
+   <zorder>textEditDisp</zorder>
+   <zorder>pushButtonLogPos</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>600</width>
+     <width>837</width>
      <height>23</height>
     </rect>
    </property>

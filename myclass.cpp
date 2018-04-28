@@ -16,6 +16,7 @@ MyClass::MyClass(QWidget *parent)
     this->connect(ui.pushButtonToolx, SIGNAL(clicked()), this, SLOT(sendToolx()));
     this->connect(ui.pushButtonQuit, SIGNAL(clicked()), this, SLOT(sendQuit()));
     this->connect(ui.pushButtonCapture, SIGNAL(clicked()), this, SLOT(sendCapture()));
+    this->connect(ui.pushButtonLogPos, SIGNAL(clicked()), this, SLOT(logPositionClick()));
 }
 
 MyClass::~MyClass()
@@ -73,8 +74,12 @@ void MyClass::readMessage() //读取信息
 	//    ui->textEdit_rec->te  
 	QByteArray qba = m_tcpSocket->readAll(); //读取  
 	qDebug() << qba;
-	QString ss = QVariant(qba).toString();
-	//ui.textEdit_rec->setText(ss);
+    QString ss = QVariant(qba).toString();
+    recPos = ss + "\r\n";
+    recPosCount ++;
+
+    if(logPositionSet)
+        logPosition();
 
 	QString xtag = "x";
 	QString ytag = "y";
@@ -115,7 +120,7 @@ void MyClass::readMessage() //读取信息
 	ui.label_valqx->setText(q1);
 	ui.label_valqy->setText(q2);
 	ui.label_valqz->setText(q3);
-
+/*
 	//show double, NOT string
 	double val_x = xcoordinate.toDouble();
 	double val_y = ycoordinate.toDouble();
@@ -125,7 +130,51 @@ void MyClass::readMessage() //读取信息
 	double val_q1 = q1.toDouble();
 	double val_q2 = q2.toDouble();
 	double val_q3 = q3.toDouble();
-	qDebug("\n x: %f  y: %f  z: %f  rms: %f  q0: %f  q1: %f  q2: %f  q3: %f", val_x, val_y, val_z, val_rms, val_q0, val_q1, val_q2, val_q3);
+    qDebug("\n x: %f  y: %f  z: %f  rms: %f  q0: %f  q1: %f  q2: %f  q3: %f", val_x, val_y, val_z, val_rms, val_q0, val_q1, val_q2, val_q3);
+    */
+}
+
+void MyClass::logPositionClick()
+{
+    logPositionSet = true;
+}
+void MyClass::logPosition()
+{
+    static unsigned int logCount = 1;
+    static unsigned int logPosCount = 1;
+    static unsigned int recPosLastCount;
+
+    QFile f("d:\\Dual105Log.txt");
+    if(f.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
+    {
+
+        QTextStream txtOutput(&f);
+
+        if(recPosCount != recPosLastCount) {
+            recPosLastCount = recPosCount;
+            txtOutput << recPos << endl;
+        }
+
+        if(logCount % 10 == 0) {
+            logPositionSet = false;
+            QString currentPos = "Log position " + QVariant(logPosCount).toString() + " finished.\r\n";
+            txtOutput << currentPos << endl;
+            ui.textEditDisp->setText(currentPos);
+            logPosCount ++;
+        }
+
+        logCount ++;
+
+    }
+
+
+    //QString s1("123");
+    //quint32 n1(234);
+
+    //txtOutput << s1 << endl;
+    //txtOutput << n1 << endl;
+
+    f.close();
 }
 
 void MyClass::sendMessage() //发送信息  
