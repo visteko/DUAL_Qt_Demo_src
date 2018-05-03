@@ -18,6 +18,9 @@ MyClass::MyClass(QWidget *parent)
     this->connect(ui.pushButtonCapture, SIGNAL(clicked()), this, SLOT(sendCapture()));
     this->connect(ui.pushButtonLogPos, SIGNAL(clicked()), this, SLOT(logPositionClick()));
     this->connect(ui.pushButtonAverage, SIGNAL(clicked()), this, SLOT(calcAverage()));
+    this->connect(ui.pushButtonPosition, SIGNAL(clicked()), this, SLOT(calcPosition()));
+    this->connect(ui.pushButtoncmmPosition, SIGNAL(clicked()), this, SLOT(cmmPosition()));
+    this->connect(ui.pushButtonError, SIGNAL(clicked()), this, SLOT(calcError()));
 }
 
 MyClass::~MyClass()
@@ -140,21 +143,21 @@ void MyClass::logPositionClick()
     logPositionSet = true;
 }
 
-void MyClass::calcAverage()
+void MyClass::calcPosition()
 {
     QString xtag = "x";
     QString ytag = "y";
     QString ztag = "z";
     QString rtag = "rms";
     QString repeat_tag = "vepvsp";
-    QFile fileRead("d:\\Dual105Log1_cut.txt");
+    QFile fileRead("d:\\Dual105Log2_cut.txt");
     if(!fileRead.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         ui.textEditDisp->setText("calc average: open file failed.");
         return;
     }
 
-    QFile fileWrite("d:\\Dual105Log1_average.txt");
+    QFile fileWrite("d:\\Dual105Log2_pos.txt");
     if(!fileWrite.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
     {
         ui.textEditDisp->setText("calc average: open file failed.");
@@ -162,10 +165,8 @@ void MyClass::calcAverage()
     }
     QTextStream txtOutput(&fileWrite);
 
-    qreal array[2550][3] = {0};
-    qreal array_average[255][3] = {0};
     QTextStream txtInput(&fileRead);
-    int line_number = 0;
+
 
 /*
     while (!txtInput.atEnd()) {
@@ -196,47 +197,204 @@ void MyClass::calcAverage()
             QString zcoordinate = ss_from_x.mid(zpos + 1, rpos - (zpos + 1));
             //txtOutput << xcoordinate + " " << endl;
             //txtOutput << ycoordinate + " "<< endl;
-            //txtOutput << zcoordinate + "\r\n"<< endl;
+            //txtOutput << zcoordinate + "\r\n"<< endl;            
 
             double val_x = xcoordinate.toDouble();
             double val_y = ycoordinate.toDouble();
             double val_z = zcoordinate.toDouble();
+            //double position = sqrt((qPow(val_x-147.233,2) + qPow(val_y-73.699,2) + qPow(val_z-1057.662,2))); // log1 pos 68 as the start point.
+            double position = sqrt((qPow(val_x-156.516,2) + qPow(val_y-21.121,2) + qPow(val_z-1247.061,2))); // log2 pos 148 as the start point.
 
-            array[line_number][0] = val_x;
-            array[line_number][1] = val_y;
-            array[line_number][2] = val_z;
+            txtOutput << QVariant(QString::number(position,'f',6)).toString()<< endl;
 
-            ++line_number;
-            ui.textEditDisp->setText(QVariant(line_number).toString());
         }
     }
 
-    double sum_x = 0,sum_y = 0,sum_z = 0;
+
+    fileRead.close();
+    fileWrite.close();
+    ui.textEditDisp->setText("calc position finished.");
+}
+
+void MyClass::calcAverage()
+{
+    QString xtag = "x";
+    QString ytag = "y";
+    QString ztag = "z";
+    QString rtag = "rms";
+    QString repeat_tag = "vepvsp";
+    QFile fileRead("d:\\Dual105Log2_pos.txt");
+    if(!fileRead.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        ui.textEditDisp->setText("calc average: open file failed.");
+        return;
+    }
+
+    QFile fileWriteSigma("d:\\Dual105Log2_pos_err_sigma.txt");
+    if(!fileWriteSigma.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
+    {
+        ui.textEditDisp->setText("calc average: open file failed.");
+        return;
+    }
+    QTextStream txtOutputSigma(&fileWriteSigma);
+
+    QFile fileWriteAverage("d:\\Dual105Log2_pos_average.txt");
+    if(!fileWriteAverage.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
+    {
+        ui.textEditDisp->setText("calc average: open file failed.");
+        return;
+    }
+    QTextStream txtOutputAverage(&fileWriteAverage);
+
+    qreal array[2550] = {0};
+    qreal array_average[255] = {0};
+    QTextStream txtInput(&fileRead);
+    int line_number = 0;
+
+
+    while (!txtInput.atEnd()) {
+        QString pos = txtInput.readLine();
+        double position = pos.toDouble();
+
+        array[line_number] = position;
+
+        ++line_number;
+    }
+
+    double sum_pos = 0;
+    double sum_vi_square = 0;
     int j = 0;
     for(int i = 0; i < 2550; i++) {
 
-        sum_x += array[i][0];
-        sum_y += array[i][1];
-        sum_z += array[i][2];
+        sum_pos += array[i];
+
 
         if((i+1)%10 == 0) {
-            array_average[j][0] = sum_x / 10.0f;
-            array_average[j][1] = sum_y / 10.0f;
-            array_average[j++][2] = sum_z / 10.0f;  //QString::number(data,'f',10);
+            array_average[j] = sum_pos / 10.0f;  //QString::number(data,'f',10);
+            for(int m = 0; m < 10; m++) {
+                sum_vi_square += qPow((array[m+j*10] - array_average[j]), 2);
+            }
+            double err_sigma = sqrt(sum_vi_square/9);
+            QString str_err_sigma = QString::number(err_sigma,'f',6);
+            txtOutputSigma << str_err_sigma << endl;
 
-            QString str_x = QString::number(sum_x / 10.0f,'f',6);  // f 表示非科学记数法  6表示小数点后保留6位
-            QString str_y = QString::number(sum_y / 10.0f,'f',6);
-            QString str_z = QString::number(sum_z / 10.0f,'f',6);
-            txtOutput << str_x + " "<< endl;
-            txtOutput << str_y + " "<< endl;
-            txtOutput << str_z + "\r\n"<< endl;
+            QString str_pos_average = QString::number(sum_pos / 10.0f,'f',6);  // f 表示非科学记数法  6表示小数点后保留6位
+            txtOutputAverage << str_pos_average << endl;
 
-            sum_x = 0,sum_y = 0,sum_z = 0;
+            sum_vi_square = 0;
+            sum_pos = 0;
+            j++;
         }
     }
     fileRead.close();
-    fileWrite.close();
+    fileWriteSigma.close();
+    fileWriteAverage.close();
     ui.textEditDisp->setText("calc average finished.");
+}
+
+void MyClass::cmmPosition()
+{
+    QString xtag = "/";
+    QString comma = " ";
+
+    QFile fileRead("d:\\cmmLog2.txt");
+    if(!fileRead.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        ui.textEditDisp->setText("calc average: open file failed.");
+        return;
+    }
+
+    QFile fileWrite("d:\\cmmLog2_pos.txt");
+    if(!fileWrite.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
+    {
+        ui.textEditDisp->setText("calc average: open file failed.");
+        return;
+    }
+    QTextStream txtOutput(&fileWrite);
+
+    QTextStream txtInput(&fileRead);
+
+    while (!txtInput.atEnd()) {
+        QString ss = txtInput.readLine();
+        int xpos = ss.indexOf(xtag);
+        if(!ss.isNull()) {
+            QString ss_from_x;
+            ss_from_x = ss.mid(xpos);
+
+            int ypos = ss_from_x.indexOf(comma);
+            int zpos = ss_from_x.lastIndexOf(comma);
+
+            //  +1: to eliminate "x";
+            QString xcoordinate = ss_from_x.mid(1, ypos - 2);
+            QString ycoordinate = ss_from_x.mid(ypos + 1, zpos-1 - (ypos + 1));
+            QString zcoordinate = ss_from_x.mid(zpos + 1);
+            //txtOutput << xcoordinate << endl;
+            //txtOutput << ycoordinate << endl;
+            //txtOutput << zcoordinate << endl;
+
+            double val_x = xcoordinate.toDouble();
+            double val_y = ycoordinate.toDouble();
+            double val_z = zcoordinate.toDouble();
+            //double position = sqrt((qPow(val_x-52.4635,2) + qPow(val_y-(-32.183764),2) + qPow(val_z-1.516354,2))); // log1 pos 68 as the start point.
+            double position = sqrt((qPow(val_x-86.622,2) + qPow(val_y-156.065757,2) + qPow(val_z-46.369905,2))); // log2 pos 148 as the start point.
+
+            txtOutput << QVariant(QString::number(position,'f',6)).toString()<< endl;
+
+        }
+    }
+
+
+    fileRead.close();
+    fileWrite.close();
+    ui.textEditDisp->setText("calc position finished.");
+}
+
+void MyClass::calcError()
+{
+
+    QFile fileReadCmm("d:\\cmmLog2_pos.txt");
+    if(!fileReadCmm.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        ui.textEditDisp->setText("calc average: open file failed.");
+        return;
+    }
+    QFile fileReadDual("d:\\Dual105Log2_pos_average.txt");
+    if(!fileReadDual.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        ui.textEditDisp->setText("calc average: open file failed.");
+        return;
+    }
+
+    QFile fileWrite("d:\\SystemError2.txt");
+    if(!fileWrite.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
+    {
+        ui.textEditDisp->setText("calc average: open file failed.");
+        return;
+    }
+    QTextStream txtOutput(&fileWrite);
+
+    QTextStream txtInputCmm(&fileReadCmm);
+    QTextStream txtInputDual(&fileReadDual);
+
+    while (!txtInputCmm.atEnd()) {
+        QString str_cmm = txtInputCmm.readLine();
+        QString str_dual = txtInputDual.readLine();
+        if(!str_cmm.isNull()) {
+
+            double val_cmm = str_cmm.toDouble();
+            double val_dual = str_dual.toDouble();
+            double val_err = val_cmm - val_dual;
+
+            txtOutput << QVariant(QString::number(val_err,'f',6)).toString()<< endl;
+
+        }
+    }
+
+
+    fileReadCmm.close();
+    fileReadDual.close();
+    fileWrite.close();
+    ui.textEditDisp->setText("calc err finished.");
 }
 
 void MyClass::logPosition()
