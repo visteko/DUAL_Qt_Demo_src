@@ -17,6 +17,7 @@ MyClass::MyClass(QWidget *parent)
     this->connect(ui.pushButtonQuit, SIGNAL(clicked()), this, SLOT(sendQuit()));
     this->connect(ui.pushButtonCapture, SIGNAL(clicked()), this, SLOT(sendCapture()));
     this->connect(ui.pushButtonLogPos, SIGNAL(clicked()), this, SLOT(logPositionClick()));
+    this->connect(ui.pushButtonAverage, SIGNAL(clicked()), this, SLOT(calcAverage()));
 }
 
 MyClass::~MyClass()
@@ -26,7 +27,7 @@ MyClass::~MyClass()
 
 void MyClass::udpBroadcast()
 {
-    QString content = "TrackerServerIP:" + getHostIpAddress();
+    QString content = "TrackerServerIP:192.168.1.100";// + getHostIpAddress();
     m_pUdpServer->writeDatagram(content.toLocal8Bit(), QHostAddress::Broadcast, 2000);
 }
 //获取本机IP
@@ -138,6 +139,106 @@ void MyClass::logPositionClick()
 {
     logPositionSet = true;
 }
+
+void MyClass::calcAverage()
+{
+    QString xtag = "x";
+    QString ytag = "y";
+    QString ztag = "z";
+    QString rtag = "rms";
+    QString repeat_tag = "vepvsp";
+    QFile fileRead("d:\\Dual105Log1_cut.txt");
+    if(!fileRead.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        ui.textEditDisp->setText("calc average: open file failed.");
+        return;
+    }
+
+    QFile fileWrite("d:\\Dual105Log1_average.txt");
+    if(!fileWrite.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
+    {
+        ui.textEditDisp->setText("calc average: open file failed.");
+        return;
+    }
+    QTextStream txtOutput(&fileWrite);
+
+    qreal array[2550][3] = {0};
+    qreal array_average[255][3] = {0};
+    QTextStream txtInput(&fileRead);
+    int line_number = 0;
+
+/*
+    while (!txtInput.atEnd()) {
+        QString ss = txtInput.readLine();
+        int repeat_tag_num = ss.indexOf(repeat_tag);
+        if(repeat_tag_num > 0) {
+            QString cut_str = ss.mid(0,repeat_tag_num+3);
+            txtOutput << cut_str + "\r\n"<< endl;
+        } else {
+            txtOutput << ss + "\r\n" << endl;
+        }
+
+    }
+*/
+    while (!txtInput.atEnd()) {
+        QString ss = txtInput.readLine();
+        int xpos = ss.indexOf(xtag);
+        if(xpos > 0) {
+            QString ss_from_x;
+            ss_from_x = ss.mid(xpos);
+
+            int ypos = ss_from_x.indexOf(ytag);
+            int zpos = ss_from_x.indexOf(ztag);
+            int rpos = ss_from_x.indexOf(rtag);
+            //  +1: to eliminate "x";
+            QString xcoordinate = ss_from_x.mid(1, ypos - 1);
+            QString ycoordinate = ss_from_x.mid(ypos + 1, zpos - (ypos + 1));
+            QString zcoordinate = ss_from_x.mid(zpos + 1, rpos - (zpos + 1));
+            //txtOutput << xcoordinate + " " << endl;
+            //txtOutput << ycoordinate + " "<< endl;
+            //txtOutput << zcoordinate + "\r\n"<< endl;
+
+            double val_x = xcoordinate.toDouble();
+            double val_y = ycoordinate.toDouble();
+            double val_z = zcoordinate.toDouble();
+
+            array[line_number][0] = val_x;
+            array[line_number][1] = val_y;
+            array[line_number][2] = val_z;
+
+            ++line_number;
+            ui.textEditDisp->setText(QVariant(line_number).toString());
+        }
+    }
+
+    double sum_x = 0,sum_y = 0,sum_z = 0;
+    int j = 0;
+    for(int i = 0; i < 2550; i++) {
+
+        sum_x += array[i][0];
+        sum_y += array[i][1];
+        sum_z += array[i][2];
+
+        if((i+1)%10 == 0) {
+            array_average[j][0] = sum_x / 10.0f;
+            array_average[j][1] = sum_y / 10.0f;
+            array_average[j++][2] = sum_z / 10.0f;  //QString::number(data,'f',10);
+
+            QString str_x = QString::number(sum_x / 10.0f,'f',6);  // f 表示非科学记数法  6表示小数点后保留6位
+            QString str_y = QString::number(sum_y / 10.0f,'f',6);
+            QString str_z = QString::number(sum_z / 10.0f,'f',6);
+            txtOutput << str_x + " "<< endl;
+            txtOutput << str_y + " "<< endl;
+            txtOutput << str_z + "\r\n"<< endl;
+
+            sum_x = 0,sum_y = 0,sum_z = 0;
+        }
+    }
+    fileRead.close();
+    fileWrite.close();
+    ui.textEditDisp->setText("calc average finished.");
+}
+
 void MyClass::logPosition()
 {
     static unsigned int logCount = 1;

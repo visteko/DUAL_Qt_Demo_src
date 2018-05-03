@@ -399,6 +399,19 @@
      <string>Log</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButtonAverage">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>210</y>
+      <width>75</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>calcAverage</string>
+    </property>
+   </widget>
    <zorder>pushButton_stop</zorder>
    <zorder>pushButton_start</zorder>
    <zorder>label_Tx</zorder>
@@ -427,6 +440,7 @@
    <zorder>pushButtonToolx</zorder>
    <zorder>textEditDisp</zorder>
    <zorder>pushButtonLogPos</zorder>
+   <zorder>pushButtonAverage</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -434,7 +448,7 @@
      <x>0</x>
      <y>0</y>
      <width>837</width>
-     <height>23</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

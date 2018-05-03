@@ -37,6 +37,7 @@ private slots:
     void sendToolx();
     void logPosition();
     void logPositionClick();
+    void calcAverage();
     QString getHostIpAddress();
 private:
 	Ui::MyClassClass ui;
