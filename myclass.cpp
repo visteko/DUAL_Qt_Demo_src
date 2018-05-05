@@ -30,7 +30,7 @@ MyClass::~MyClass()
 
 void MyClass::udpBroadcast()
 {
-    QString content = "TrackerServerIP:192.168.1.100";// + getHostIpAddress();
+    QString content = "TrackerServerIP:" + getHostIpAddress(); //192.168.1.100;//
     m_pUdpServer->writeDatagram(content.toLocal8Bit(), QHostAddress::Broadcast, 2000);
 }
 //获取本机IP
@@ -150,14 +150,14 @@ void MyClass::calcPosition()
     QString ztag = "z";
     QString rtag = "rms";
     QString repeat_tag = "vepvsp";
-    QFile fileRead("d:\\Dual105Log2_cut.txt");
+    QFile fileRead("d:\\Dual105Log1_cut.txt");
     if(!fileRead.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         ui.textEditDisp->setText("calc average: open file failed.");
         return;
     }
 
-    QFile fileWrite("d:\\Dual105Log2_pos.txt");
+    QFile fileWrite("d:\\Dual105Log1_pos66.txt");
     if(!fileWrite.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
     {
         ui.textEditDisp->setText("calc average: open file failed.");
@@ -202,8 +202,9 @@ void MyClass::calcPosition()
             double val_x = xcoordinate.toDouble();
             double val_y = ycoordinate.toDouble();
             double val_z = zcoordinate.toDouble();
+            double position = sqrt((qPow(val_x-204.47,2) + qPow(val_y-73.45,2) + qPow(val_z-1065.36,2))); // log1 pos 66 as the start point.
             //double position = sqrt((qPow(val_x-147.233,2) + qPow(val_y-73.699,2) + qPow(val_z-1057.662,2))); // log1 pos 68 as the start point.
-            double position = sqrt((qPow(val_x-156.516,2) + qPow(val_y-21.121,2) + qPow(val_z-1247.061,2))); // log2 pos 148 as the start point.
+            //double position = sqrt((qPow(val_x-156.516,2) + qPow(val_y-21.121,2) + qPow(val_z-1247.061,2))); // log2 pos 148 as the start point.
 
             txtOutput << QVariant(QString::number(position,'f',6)).toString()<< endl;
 
@@ -223,14 +224,14 @@ void MyClass::calcAverage()
     QString ztag = "z";
     QString rtag = "rms";
     QString repeat_tag = "vepvsp";
-    QFile fileRead("d:\\Dual105Log2_pos.txt");
+    QFile fileRead("d:\\Dual105Log1_pos66.txt");
     if(!fileRead.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         ui.textEditDisp->setText("calc average: open file failed.");
         return;
     }
 
-    QFile fileWriteSigma("d:\\Dual105Log2_pos_err_sigma.txt");
+    QFile fileWriteSigma("d:\\Dual105Log1_pos66_err_sigma.txt");
     if(!fileWriteSigma.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
     {
         ui.textEditDisp->setText("calc average: open file failed.");
@@ -238,7 +239,7 @@ void MyClass::calcAverage()
     }
     QTextStream txtOutputSigma(&fileWriteSigma);
 
-    QFile fileWriteAverage("d:\\Dual105Log2_pos_average.txt");
+    QFile fileWriteAverage("d:\\Dual105Log1_pos66_average.txt");
     if(!fileWriteAverage.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
     {
         ui.textEditDisp->setText("calc average: open file failed.");
@@ -297,14 +298,14 @@ void MyClass::cmmPosition()
     QString xtag = "/";
     QString comma = " ";
 
-    QFile fileRead("d:\\cmmLog2.txt");
+    QFile fileRead("d:\\cmmLog1.txt");
     if(!fileRead.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         ui.textEditDisp->setText("calc average: open file failed.");
         return;
     }
 
-    QFile fileWrite("d:\\cmmLog2_pos.txt");
+    QFile fileWrite("d:\\cmmLog1_pos66.txt");
     if(!fileWrite.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
     {
         ui.textEditDisp->setText("calc average: open file failed.");
@@ -335,8 +336,9 @@ void MyClass::cmmPosition()
             double val_x = xcoordinate.toDouble();
             double val_y = ycoordinate.toDouble();
             double val_z = zcoordinate.toDouble();
+            double position = sqrt((qPow(val_x-110.2605,2) + qPow(val_y-(-32.1873),2) + qPow(val_z-1.516354,2))); // log1 pos 66 as the start point.
             //double position = sqrt((qPow(val_x-52.4635,2) + qPow(val_y-(-32.183764),2) + qPow(val_z-1.516354,2))); // log1 pos 68 as the start point.
-            double position = sqrt((qPow(val_x-86.622,2) + qPow(val_y-156.065757,2) + qPow(val_z-46.369905,2))); // log2 pos 148 as the start point.
+            //double position = sqrt((qPow(val_x-86.622,2) + qPow(val_y-156.065757,2) + qPow(val_z-46.369905,2))); // log2 pos 148 as the start point.
 
             txtOutput << QVariant(QString::number(position,'f',6)).toString()<< endl;
 
@@ -352,20 +354,20 @@ void MyClass::cmmPosition()
 void MyClass::calcError()
 {
 
-    QFile fileReadCmm("d:\\cmmLog2_pos.txt");
+    QFile fileReadCmm("d:\\cmmLog1_pos66.txt");
     if(!fileReadCmm.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         ui.textEditDisp->setText("calc average: open file failed.");
         return;
     }
-    QFile fileReadDual("d:\\Dual105Log2_pos_average.txt");
+    QFile fileReadDual("d:\\Dual105Log1_pos66_average.txt");
     if(!fileReadDual.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         ui.textEditDisp->setText("calc average: open file failed.");
         return;
     }
 
-    QFile fileWrite("d:\\SystemError2.txt");
+    QFile fileWrite("d:\\SystemError1-p66.txt");
     if(!fileWrite.open(QIODevice::WriteOnly | QIODevice::Append))  // Append means add text to the file, not rewrite it
     {
         ui.textEditDisp->setText("calc average: open file failed.");
